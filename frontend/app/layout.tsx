@@ -2,14 +2,13 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
-import {Inter} from 'next/font/google'
+import {Manrope, Playfair_Display} from 'next/font/google'
+import localFont from 'next/font/local'
 import {draftMode} from 'next/headers'
 import {VisualEditing, toPlainText} from 'next-sanity'
 import {Toaster} from 'sonner'
 
 import DraftModeToast from '@/app/components/DraftModeToast'
-import Footer from '@/app/components/Footer'
-import Header from '@/app/components/Header'
 import * as demo from '@/sanity/lib/demo'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
@@ -51,9 +50,33 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const inter = Inter({
-  variable: '--font-inter',
+const manrope = Manrope({
+  variable: '--font-manrope',
   subsets: ['latin'],
+  display: 'swap',
+})
+
+const play_fair = Playfair_Display({
+  variable: '--font-playfair',
+  subsets: ['latin'],
+  display: 'swap',
+  style: ['normal', 'italic'],
+})
+
+const satoshi = localFont({
+  variable: '--font-satoshi',
+  src: [
+    {
+      path: '../public/fonts/Satoshi-Regular.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../public/fonts/Satoshi-Medium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+  ],
   display: 'swap',
 })
 
@@ -61,9 +84,12 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${inter.variable} bg-white text-black`}>
+    <html
+      lang="en"
+      className={`${manrope.variable} ${manrope.className} ${play_fair.variable} ${satoshi.variable}`}
+    >
       <body>
-        <section className="min-h-screen pt-24">
+        <section className="text-white min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}
           <Toaster />
           {isDraftMode && (
@@ -75,9 +101,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
-          <Header />
           <main className="">{children}</main>
-          <Footer />
         </section>
         <SpeedInsights />
       </body>
