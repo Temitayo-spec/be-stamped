@@ -1,8 +1,5 @@
 import React from 'react'
-import {AboutUsHeroSection} from '../..'
-import WhoWeAre from './WhoWeAre'
-import MeetTheTeam from './MeetTheTeam'
-import AboutUsFooter from './AboutUsFooter'
+import {AboutUsHeroSection, WhoWeAre, MeetTheTeam, AboutUsFooter} from '../..'
 
 const Inject = () => {
   return (

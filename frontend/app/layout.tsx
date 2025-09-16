@@ -14,6 +14,7 @@ import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from './client-utils'
+import Layout from '@/layout'
 
 /**
  * Generate metadata for the page.
@@ -101,7 +102,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
           )}
           {/* The <SanityLive> component is responsible for making all sanityFetch calls in your application live, so should always be rendered. */}
           <SanityLive onError={handleError} />
-          <main className="">{children}</main>
+          <Layout>{children}</Layout>
         </section>
         <SpeedInsights />
       </body>

@@ -17,9 +17,20 @@ const Header = () => {
     pathname === '/about' ||
     pathname === '/contact' ||
     pathname === '/services'
+
+  const handleMenuToggle = () => {
+    if (isOpen) {
+      // If navbar is open, let Navbar component handle closing
+      return
+    } else {
+      // If navbar is closed, open it
+      open()
+    }
+  }
+
   return (
     <>
-      {isOpen && <Navbar />}
+      <Navbar />
       <div className="relative z-10">
         <div className="flex justify-between items-center pt-8 w-[95%] mx-auto max-w-[1440px]">
           <Link href={'/'}>
@@ -36,7 +47,7 @@ const Header = () => {
               </Link>
             )}
 
-            <div className="cursor-pointer" onClick={open}>
+            <div className="cursor-pointer" onClick={handleMenuToggle}>
               <Image src={burger} alt="hamburger menu" />
             </div>
           </div>

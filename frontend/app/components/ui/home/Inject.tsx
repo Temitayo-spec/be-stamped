@@ -7,7 +7,7 @@ import {useNavigation} from '@/store/navigation'
 
 const Inject = () => {
   return (
-    <main className='bg-background'>
+    <main className='bg-background min-h-screen'>
       <Header />
 
       <div
